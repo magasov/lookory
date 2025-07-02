@@ -1,0 +1,80 @@
+.main {
+  .h3 {
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h3 {
+      font-weight: 500;
+      font-size: 21.56px;
+      line-height: 32px;
+    }
+
+    .sort {
+      position: relative;
+      display: flex;
+      gap: 8px;
+      padding: 10px 15px;
+      border: 1px solid #e5e5e5;
+      border-radius: 4px;
+      font-weight: 400;
+      font-size: 14.5px;
+      line-height: 20px;
+      cursor: pointer;
+      z-index: 2;
+
+      &__options {
+        position: absolute;
+        top: 50px;
+        background: #fff;
+        right: 0;
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+          rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+        width: 232px;
+        border-radius: 3px;
+
+        p {
+          font-size: 14.5px;
+          &:hover {
+            opacity: 0.7;
+          }
+        }
+      }
+    }
+  }
+
+  .slidebarAndProducts {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+  }
+}
+
+@media (max-width: 1200px) {
+  .main {
+    margin: 0 10px;
+  }
+}
+
+@media (max-width: 930px) {
+  .main {
+    .h3 {
+      display: none;
+    }
+
+    .slidebarAndProducts {
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .main {
+    margin: 0 1px;
+  }
+}

@@ -1,0 +1,342 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+.orders-container {
+  max-width: 1200px;
+  min-height: calc(100vh - 350px);
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: "Inter", sans-serif;
+}
+
+.orders-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.orders-list {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.order-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.order-number {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.order-status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+
+  &.pending {
+    background: #fff3e0;
+    color: #f57c00;
+  }
+
+  &.paid {
+    background: #e3f2fd;
+    color: #0288d1;
+  }
+
+  &.delivered {
+    background: #e6f4ea;
+    color: #2e7d32;
+  }
+}
+
+.order-details {
+  margin-bottom: 1.5rem;
+}
+
+.order-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.label {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.value {
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.order-items {
+  margin-top: 10px;
+
+  .label {
+    font-weight: bold;
+    color: #1a1a1a;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+
+    li {
+      margin: 5px 0;
+      font-size: 0.9rem;
+      color: #333;
+    }
+  }
+}
+
+.order-action {
+  width: 100%;
+  padding: 0.75rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: #0056b3;
+  }
+}
+
+.arrow-icon {
+  font-size: 0.9rem;
+}
+
+/* Стили для модального окна */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  font-family: "Inter", sans-serif;
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #1a1a1a;
+  }
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+}
+
+.modal-details {
+  margin-bottom: 1.5rem;
+}
+
+.modal-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+
+  .label {
+    font-weight: 500;
+    color: #666;
+  }
+
+  .value {
+    font-weight: 500;
+    color: #1a1a1a;
+  }
+}
+
+.modal-items {
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+}
+
+.modal-item {
+  display: flex;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+
+.item-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin-right: 1rem;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.item-details {
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 0.5rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0.25rem 0;
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  color: #ccc;
+  margin-bottom: 1.5rem;
+}
+
+.empty-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.empty-text {
+  font-size: 1rem;
+  color: #666;
+  max-width: 400px;
+  margin-bottom: 2rem;
+}
+
+.shop-button {
+  padding: 0.75rem 1.5rem;
+  background: #000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: #333;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .orders-title {
+    font-size: 1.5rem;
+  }
+
+  .order-card {
+    padding: 1rem;
+  }
+
+  .modal-content {
+    padding: 1.5rem;
+    width: 95%;
+  }
+
+  .modal-title {
+    font-size: 1.25rem;
+  }
+
+  .item-image {
+    width: 60px;
+    height: 60px;
+  }
+
+  .empty-icon {
+    font-size: 3rem;
+  }
+
+  .empty-title {
+    font-size: 1.25rem;
+  }
+}

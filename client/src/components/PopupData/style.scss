@@ -1,0 +1,87 @@
+.padding__data {
+  position: absolute;
+  padding: 20px 0;
+  left: -100px;
+  z-index: 9999;
+  top: 20px;
+
+  .popupData {
+    background: #fff;
+    box-shadow: 0 2px 8px #00000040;
+    width: 272px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px 0;
+
+    &__head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #4178aa;
+        color: #fff;
+        border-radius: 40%;
+      }
+
+      .infouser {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+
+        p {
+          font-size: 14px;
+          text-transform: capitalize;
+        }
+
+        span {
+          font-size: 11px;
+          color: #888;
+        }
+      }
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: #e5e5e5;
+      margin: 0 16px;
+    }
+
+    &__main {
+      display: flex;
+      flex-direction: column;
+
+      a {
+        font-size: 13px;
+        padding: 8px 16px;
+        cursor: pointer;
+
+        &:hover {
+          background: #f5f5f5;
+          opacity: 0.6;
+        }
+
+        span {
+          color: #888;
+        }
+      }
+    }
+
+    .logout {
+      padding: 8px 16px;
+      &:hover {
+        background: #f5f5f5;
+        opacity: 0.6;
+      }
+    }
+  }
+}

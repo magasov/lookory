@@ -1,0 +1,149 @@
+-- Create table `user`
+CREATE TABLE `user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `passwordHash` varchar(255) NOT NULL,
+  `verify` tinyint(1) DEFAULT '0',
+  `verifyToken` varchar(64) DEFAULT NULL,
+  `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `isAdmin` tinyint(1) DEFAULT '0',
+  `phone` varchar(45) DEFAULT NULL,
+  `firstname` varchar(45) DEFAULT NULL,
+  `lastname` varchar(45) DEFAULT NULL,
+  `delivery` varchar(45) DEFAULT NULL,
+  `city` varchar(45) DEFAULT NULL,
+  `address` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Create table `product`
+CREATE TABLE `product` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `article` varchar(8) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `brand` varchar(255) NOT NULL,
+  `oldPrice` decimal(10,2) NOT NULL,
+  `newPrice` decimal(10,2) NOT NULL,
+  `country` varchar(255) NOT NULL,
+  `quality` varchar(255) NOT NULL,
+  `orig` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Create table `category`
+CREATE TABLE `category` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `parentId` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `parentId` (`parentId`),
+  CONSTRAINT `category_ibfk_1` FOREIGN KEY (`parentId`) REFERENCES `category` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+это тоже к категориям
+ALTER TABLE Category ADD COLUMN gender ENUM('men', 'women') NULL; 
+
+-- Create table `productcategory`
+CREATE TABLE `productcategory` (
+  `productId` int NOT NULL,
+  `categoryId` int NOT NULL,
+  PRIMARY KEY (`productId`,`categoryId`),
+  KEY `categoryId` (`categoryId`),
+  CONSTRAINT `productcategory_ibfk_1` FOREIGN KEY (`productId`) REFERENCES `product` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `productcategory_ibfk_2` FOREIGN KEY (`categoryId`) REFERENCES `category` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- туристыtable `productimage`
+CREATE TABLE `productimage` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `productId` int NOT NULL,
+  `mainUrl` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `productId` (`productId`),
+  CONSTRAINT `productimage_ibfk_1` FOREIGN KEY (`productId`) REFERENCES `product` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Create table `additionalimage`
+CREATE TABLE `additionalimage` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `imageId` int NOT NULL,
+  `url` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `imageId` (`imageId`),
+  CONSTRAINT `additionalimage_ibfk_1` FOREIGN KEY (`imageId`) REFERENCES `productimage` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Create table `productcolor`
+CREATE TABLE `productcolor` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `productId` int NOT NULL,
+  `color` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `productId` (`productId`),
+  CONSTRAINT `productcolor_ibfk_1` FOREIGN KEY (`productId`) REFERENCES `product` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Create table `productsize`
+CREATE TABLE `productsize` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `productId` int NOT NULL,
+  `size` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `productId` (`productId`),
+  CONSTRAINT `productsize_ibfk_1` FOREIGN KEY (`productId`) REFERENCES `product` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Create table `imagecolor`
+CREATE TABLE `imagecolor` (
+  `imageId` int NOT NULL,
+  `colorId` int NOT NULL,
+  PRIMARY KEY (`imageId`,`colorId`),
+  KEY `colorId` (`colorId`),
+  CONSTRAINT `imagecolor_ibfk_1` FOREIGN KEY (`imageId`) REFERENCES `productimage` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `imagecolor_ibfk_2` FOREIGN KEY (`colorId`) REFERENCES `productcolor` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Create table `imagesize`
+CREATE TABLE `imagesize` (
+  `imageId` int NOT NULL,
+  `sizeId` int NOT NULL,
+  PRIMARY KEY (`imageId`,`sizeId`),
+  KEY `sizeId` (`sizeId`),
+  CONSTRAINT `imagesize_ibfk_1` FOREIGN KEY (`imageId`) REFERENCES `productimage` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `imagesize_ibfk_2` FOREIGN KEY (`sizeId`) REFERENCES `productsize` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Create table `cart`
+CREATE TABLE `cart` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `userId` int DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Create table `cartitem`
+CREATE TABLE `cartitem` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `cartId` int NOT NULL,
+  `productId` int NOT NULL,
+  `variantId` int NOT NULL,
+  `color` varchar(50) NOT NULL,
+  `size` varchar(50) NOT NULL,
+  `quantity` int NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cartId` (`cartId`),
+  KEY `productId` (`productId`),
+  KEY `variantId` (`variantId`),
+  CONSTRAINT `cartitem_ibfk_1` FOREIGN KEY (`cartId`) REFERENCES `cart` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `cartitem_ibfk_2` FOREIGN KEY (`productId`) REFERENCES `product` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `cartitem_ibfk_3` FOREIGN KEY (`variantId`) REFERENCES `productimage` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

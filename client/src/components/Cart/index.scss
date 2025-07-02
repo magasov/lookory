@@ -1,0 +1,162 @@
+.cart {
+  display: flex;
+  flex-direction: column;
+
+  &__one {
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    height: 334px;
+
+    .discount {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 2;
+      padding: 1px 7px 1px 5px;
+      background: #f93c00;
+      color: #fff;
+      font-weight: 400;
+      font-size: 11px;
+      line-height: 16px;
+      letter-spacing: 0%;
+      vertical-align: middle;
+      clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+    }
+
+    img {
+      width: 100%;
+      height: 334px;
+      object-fit: cover;
+    }
+
+    .favorite {
+      padding: 10px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      cursor: pointer;
+
+      &:hover {
+        animation: pulse 1s infinite ease;
+      }
+
+      &:hover svg path {
+        stroke: #f93c00;
+      }
+    }
+
+    .slick-slider {
+      .custom-dots {
+        height: 100%;
+        position: absolute;
+        justify-content: center;
+        padding: 2px 0 0 0;
+        top: 0;
+        left: 0;
+        display: flex !important;
+        margin: 0;
+
+        li {
+          width: 100%;
+
+          .custom-dot {
+            flex: 1;
+            height: 2.5px;
+            background-color: #ccc;
+            cursor: pointer;
+            transition: background-color 0.3s;
+          }
+        }
+
+        li.slick-active .custom-dot {
+          background-color: #888888;
+        }
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      33% {
+        transform: scale(1.1);
+      }
+      66% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  }
+
+  &__two {
+    .prices {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin: 5px 0;
+
+      span {
+        text-decoration: line-through;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 16px;
+      }
+
+      p {
+        font-weight: 700;
+        font-size: 15.75px;
+        line-height: 20px;
+
+        color: #f93c00;
+      }
+    }
+
+    .brandandname {
+      display: flex;
+      flex-direction: column;
+
+      p {
+        font-weight: 400;
+        font-size: 11.98px;
+        line-height: 16px;
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .cart {
+    &__two {
+      .prices {
+        span {
+          text-decoration: line-through;
+          font-weight: 400;
+          font-size: 11px;
+          line-height: 16px;
+        }
+
+        p {
+          font-weight: 700;
+          font-size: 13.75px;
+          line-height: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .cart {
+    &__one {
+      .custom-dots {
+        .slick-slider {
+          display: none;
+        }
+      }
+    }
+  }
+}
